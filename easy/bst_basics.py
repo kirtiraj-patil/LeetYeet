@@ -21,5 +21,3 @@ class BST:
                 root.right = self.insert(root.right, val)
 
         return root
-            
-                    
