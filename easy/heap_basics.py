@@ -26,5 +26,43 @@ class Heap:
             )
             self.heapifyUp(parentIndex)
 
+    def heapifyDown(self, index):
+        if index > self.heapSize:
+            return
+
+        leftChildIndex = 2 * index + 1
+        rightChildIndex = leftChildIndex + 1
+
+        if leftChildIndex > self.heapSize:
+            return
+        if (
+            rightChildIndex > self.heapSize
+            and self.heap[leftChildIndex] < self.heap[index]
+        ):
+            self.heap[leftChildIndex], self.heap[index] = (
+                self.heap[index],
+                self.heap[leftChildIndex],
+            )
+            return
+
+        indexToSwap = -1
+        if self.heap[leftChildIndex] < self.heap[rightChildIndex]:
+            indexToSwap = leftChildIndex
+        else:
+            indexToSwap = rightChildIndex
+
+        if self.heap[index] < self.heap[indexToSwap]:
+            self.heap[indexToSwap], self.heap[index] = (
+                self.heap[index],
+                self.heap[indexToSwap],
+            )
+
+    def pop_min(self):
+        min = self.heap[1]
+        self.heap[1], self.heap[self.heapSize] = self.heap[self.heapSize], self.heap[1]
+        self.heapSize -= 1
+        self.heapifyDown(1)
+        return min
+
 
 h = Heap([3, 5, 6, 2, 1])
